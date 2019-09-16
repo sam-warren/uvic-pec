@@ -4,12 +4,12 @@ import 'firebase/firestore';
 
 firebase.initializeApp({
     apiKey: 'AIzaSyCiVUuoJzaDZzTIw5sqLoy44dye-w_uGa0',
-  authDomain: 'uvicphotographyexcursionclub.firebaseapp.com',
-  databaseURL: 'https://uvicphotographyexcursionclub.firebaseio.com',
-  projectId: 'uvicphotographyexcursionclub',
-  storageBucket: 'uvicphotographyexcursionclub.appspot.com',
-  messagingSenderId: '292518241291',
-  appId: '1:292518241291:web:322ba7fd880d11e124530e',
+    authDomain: 'uvicphotographyexcursionclub.firebaseapp.com',
+    databaseURL: 'https://uvicphotographyexcursionclub.firebaseio.com',
+    projectId: 'uvicphotographyexcursionclub',
+    storageBucket: 'uvicphotographyexcursionclub.appspot.com',
+    messagingSenderId: '292518241291',
+    appId: '1:292518241291:web:322ba7fd880d11e124530e',
 });
 
 // Export the database for components to use.
@@ -20,12 +20,13 @@ const currentUser = auth.currentUser;
 
 // Collections
 const usersCollection = db.collection('users');
-const tripsCollection = db.collection('trips');
+const { Timestamp, GeoPoint } = firebase.firestore;
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    tripsCollection,
+    Timestamp,
+    GeoPoint,
 };
