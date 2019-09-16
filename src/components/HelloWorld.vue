@@ -86,9 +86,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { db } from '@/firebase';
 
 export default Vue.extend({
   data: () => ({
+    users: [],
     ecosystem: [
       {
         text: 'vuetify-loader',
@@ -140,5 +142,11 @@ export default Vue.extend({
       },
     ],
   }),
+  methods: {
+
+  },
+  firestore: {
+    users: db.collection('users'),
+  },
 });
 </script>
