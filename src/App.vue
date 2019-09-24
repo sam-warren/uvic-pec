@@ -7,19 +7,25 @@
         <span>Photography Excursion Club</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text>
-        <span class="mr-2">Trips</span>
+      <v-btn text @click="navTo('trips')">
+        <span class="mr-2">Sign Up</span>
       </v-btn>
     </v-app-bar>
+    <router-view/>
   </v-app>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
+<script>
+import Vue from "vue";
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   data: () => ({
     //
   }),
+  methods: {
+    navTo(route) {
+      this.$router.push(route);
+    },
+  },
 });
 </script>
