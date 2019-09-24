@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
 import { RootState } from "./types";
-// import modules
+import { ClubSignUpForm, EmergencyContact } from "./modules";
 
 Vue.use(Vuex);
 
@@ -10,7 +10,8 @@ const store: StoreOptions<RootState> = {
     version: "1.0.0",
   },
   modules: {
-    // modules go here
+    ClubSignUpForm,
+    EmergencyContact,
   },
 };
 export default new Vuex.Store(store);
