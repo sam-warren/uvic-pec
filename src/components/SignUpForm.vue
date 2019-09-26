@@ -73,6 +73,9 @@
               <div>{{errorMessage}}</div>
             </v-form>
           </v-card-text>
+          <v-overlay :value="isLoading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+          </v-overlay>
         </v-card>
       </v-row>
     </v-container>
@@ -90,6 +93,7 @@
       EmergencyContact,
     },
     data: () => ({
+      isLoading: false,
       requiredFieldRules: [
         (v) => !!v || "This field is required",
       ],
@@ -120,6 +124,7 @@
     methods: {
       submitForm() {
         if (this.$refs.form.validate()) {
+          this.isLoading = true;
           firebase
             .auth()
             .createUserWithEmailAndPassword(
@@ -168,10 +173,20 @@
                 this.lastName,
                 "signed up successfully",
               );
+              this.isLoading = false;
               this.$router.push({ path: "/" });
             })
             .catch((err) => {
-              console.error(err.message); // TODO: Enable error message on form if email already in use
+              console.error(err); // TODO: Enable error message on form if email already in
+              if (err.code === "auth/email-already-in-use") {
+                const badEmail = this.email;
+                this.emailRules = [
+                  (v) => v !== badEmail || "Email already in use",
+                  (v) => !!v || "This field is required",
+                  (v) => /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || "Email is icorrectly formatted",
+                ];
+              }
+              this.isLoading = false;
             });
         }
       },
