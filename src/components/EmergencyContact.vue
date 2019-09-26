@@ -2,7 +2,8 @@
   <v-container>
     <v-layout row wrap>
       <v-flex mx-4>
-        <v-text-field label="First Name" :rules="requiredFieldRules" prepend-icon="person" v-model="firstName"></v-text-field>
+        <v-text-field label="First Name" :rules="requiredFieldRules" prepend-icon="person" v-model="firstName">
+        </v-text-field>
       </v-flex>
       <v-flex mx-4>
         <v-text-field label="Last Name" :rules="requiredFieldRules" v-model="lastName"></v-text-field>
@@ -10,20 +11,22 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex mx-4>
-        <v-text-field label="Relation" :rules="requiredFieldRules" prepend-icon="people" v-model="relation"></v-text-field>
+        <v-text-field label="Relation" :rules="requiredFieldRules" prepend-icon="people" v-model="relation">
+        </v-text-field>
       </v-flex>
       <v-flex mx-4>
-        <v-text-field label="Phone Number" prepend-icon="phone" :rules="requiredFieldRules" v-mask="'+1 (###) ### ####'" v-model="phoneNumber"></v-text-field>
+        <v-text-field label="Phone Number" prepend-icon="phone" :rules="requiredFieldRules" v-mask="'+1 (###) ### ####'"
+          v-model="phoneNumber"></v-text-field>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 <script>
-  import {mapState} from "vuex";
+  import { mapState } from "vuex";
   export default {
     data: () => ({
       requiredFieldRules: [
-        (v) => !!v || "This field is required"
+        (v) => !!v || "This field is required",
       ],
     }),
     computed: {

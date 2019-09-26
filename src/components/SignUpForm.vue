@@ -81,7 +81,9 @@
 <script>
   import { mapState } from "vuex";
   import EmergencyContact from "@/components/EmergencyContact.vue";
+  import { app } from "@/firebase.ts";
   import firebase from "firebase/app";
+  import "firebase/auth";
   import "firebase/firestore";
   export default {
     components: {
@@ -89,7 +91,7 @@
     },
     data: () => ({
       requiredFieldRules: [
-        (v) => !!v || "This field is required"
+        (v) => !!v || "This field is required",
       ],
       emailRules: [
         (v) => !!v || "This field is required",
@@ -104,11 +106,11 @@
         (v) => /\d{4}\/\d{2}\/\d{2}/.test(v) || "Date is incorrectly formatted",
       ],
       passwordRules: [
-        (v) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(v) || "Password must be between 6 and 20 characters containing at least one uppercase letter and one digit"
+        (v) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(v) || "Password must be between 6 and 20 characters containing at least one uppercase letter and one digit",
       ],
       passwordConfirmRules: [
         (v) => !!v || "Please confirm your password",
-        (v) => v === password || "Passwords do not match"
+        (v) => v === password || "Passwords do not match",
       ],
       password: "",
       passwordConfirm: "",
@@ -122,7 +124,7 @@
             .auth()
             .createUserWithEmailAndPassword(
               this.email,
-              this.password
+              this.password,
             )
             .then((res) => {
               // Store user in DB
@@ -131,7 +133,7 @@
               this.userId = res.user.uid;
               res.user.updateProfile({
                 displayName: this.firstName,
-                email: this.email
+                email: this.email,
               });
               firebase
                 .firestore()
@@ -155,7 +157,7 @@
               res.user
                 .sendEmailVerification()
                 .then(() => {
-                  console.log("Email sent to new user.");
+                  console.log("Email sent to new user");
                 })
                 .catch((err) => {
                   console.error(err.message);
@@ -164,12 +166,12 @@
                 "User",
                 this.firstName,
                 this.lastName,
-                "signed up successfully"
+                "signed up successfully",
               );
               this.$router.push({ path: "/" });
             })
             .catch((err) => {
-              console.error(err.message);
+              console.error(err.message); // TODO: Enable error message on form if email already in use
             });
         }
       },

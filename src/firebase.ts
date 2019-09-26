@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-firebase.initializeApp({
+const app = firebase.initializeApp({
     apiKey: "AIzaSyCiVUuoJzaDZzTIw5sqLoy44dye-w_uGa0",
     authDomain: "uvicphotographyexcursionclub.firebaseapp.com",
     databaseURL: "https://uvicphotographyexcursionclub.firebaseio.com",
@@ -22,6 +22,7 @@ const usersCollection = db.collection("users");
 const { Timestamp, GeoPoint } = firebase.firestore;
 
 export {
+    app,
     db,
     auth,
     currentUser,
