@@ -26,9 +26,6 @@ export const ClubSignUpFormMutations: MutationTree<ClubSignUpFormTypes> = {
     medicalConditions(state: ClubSignUpFormTypes, payload: string) {
         state.medicalConditions = payload;
     },
-    password(state: ClubSignUpFormTypes, payload: string) {
-        state.password = payload;
-    },
 };
 
 export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
@@ -37,5 +34,11 @@ export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
     },
     lastName(state: EmergencyContactTypes, payload: string) {
         state.lastName = payload;
+    },
+    relation(state: EmergencyContactTypes, payload: string) {
+        state.relation = payload;
+    },
+    phoneNumber(state: EmergencyContactTypes, payload: string) {
+        state.phoneNumber = payload;
     },
 };

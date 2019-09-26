@@ -27,9 +27,6 @@ export const ClubSignUpFormGetters: GetterTree<ClubSignUpFormTypes, RootState> =
     medicalConditions(state: ClubSignUpFormTypes): string {
         return state.medicalConditions || "";
     },
-    password(state: ClubSignUpFormTypes): string {
-        return state.password || "";
-    },
 };
 
 export const EmergencyContactGetters: GetterTree<EmergencyContactTypes, RootState> = {

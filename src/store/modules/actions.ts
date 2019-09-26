@@ -27,9 +27,6 @@ export const ClubSignUpActions: ActionTree<ClubSignUpFormTypes, RootState> = {
     medicalConditions(context: any, payload: string) {
         context.commit("medicalConditions", payload);
     },
-    password(context: any, payload: string) {
-        context.commit("password", payload);
-    },
     destroy(context: any) {
         context.commit("destory");
     },

@@ -9,7 +9,6 @@ export const ClubSignUpFormState: ClubSignUpFormTypes = {
     isUvicStudent: false,
     studentNumber: "",
     medicalConditions: "",
-    password: "",
 };
 
 export const EmergencyContactState: EmergencyContactTypes = {

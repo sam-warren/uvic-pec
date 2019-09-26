@@ -7,7 +7,6 @@ export interface ClubSignUpFormTypes {
     isUvicStudent: boolean;
     studentNumber?: string;
     medicalConditions: string;
-    password: string;
 }
 
 export interface EmergencyContactTypes {
