@@ -46,7 +46,7 @@
               <v-layout row wrap>
                 <v-flex mx-4 mt-4>
                   <v-subheader>If you have any medical conditions you think we should know about, please list them below.</v-subheader>
-                  <v-textarea rows="1" v-model="medicalConditions"></v-textarea>
+                  <v-textarea rows="2" v-model="medicalConditions"></v-textarea>
                 </v-flex>
               </v-layout>
             </v-form>
