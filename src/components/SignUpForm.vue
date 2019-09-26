@@ -11,27 +11,29 @@
             <v-form>
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-text-field label="First Name" v-model="firstName" prepend-icon="person"></v-text-field>
+                  <v-text-field label="First Name" v-model="firstName" :rules="requiredFieldRules" prepend-icon="person"></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <v-text-field label="Last Name" v-model="lastName"></v-text-field>
+                  <v-text-field label="Last Name" :rules="requiredFieldRules" v-model="lastName"></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <v-text-field type="email" label="Email" v-model="email" prepend-icon="email"></v-text-field>
+                  <v-text-field type="email" label="Email" :rules="requiredFieldRules" v-model="email" prepend-icon="email"></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-text-field
+                  <v-text-field 
+                    v-model="phoneNumber" 
                     type="tel"
+                    v-mask="'+1 (###) ### ####'"
                     label="Phone Number"
-                    v-model="phoneNumber"
-                    :mask="'(###) ### ####'"
+                    :rules="requiredFieldRules"
                     prepend-icon="phone"
+                    name="phoneNumber"
                   ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <DatePicker />
+                  <v-text-field type="text" label="Birthdate (YYYY/MM/DD)" prepend-icon="event" :rules="requiredFieldRules" v-model="birthdate" v-mask="'####/##/##'"></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
@@ -39,7 +41,7 @@
                   <v-checkbox v-model="isUvicStudent" label="I am a UVic student" />
                 </v-flex>
                 <v-flex mx-4 v-if="isUvicStudent">
-                  <v-text-field v-model="studentNumber" label="Student Number"></v-text-field>
+                  <v-text-field v-model="studentNumber" :rules="requiredFieldRules" v-mask="'V########'" label="Student Number"></v-text-field>
                 </v-flex>
               </v-layout>
               <v-divider></v-divider>
@@ -58,11 +60,12 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import DatePicker from "./DatePicker";
 export default {
-  components: {
-    DatePicker,
-  },
+  data: () => ({
+    requiredFieldRules: [
+      (v) => !!v || "This field is required"
+    ]
+  }),
   computed: {
     ...mapState({
       ClubSignUpForm: (state) => state.ClubSignUpForm,
@@ -97,6 +100,16 @@ export default {
       },
       set(value) {
         this.$store.dispatch("ClubSignUpForm/phoneNumber", value);
+      },
+    },
+    birthdate: {
+      // getter
+      get() {
+        return this.$store.getters["ClubSignUpForm/birthdate"];
+      },
+      // setter
+      set(value) {
+        this.$store.dispatch("ClubSignUpForm/birthdate", value);
       },
     },
     isUvicStudent: {

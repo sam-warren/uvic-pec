@@ -1,1 +1,1 @@
-declare module "vue-the-mask";
+declare module "v-mask";

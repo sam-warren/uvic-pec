@@ -4,11 +4,11 @@ import router from "./router";
 import store from "./store/store";
 import "./plugins/vuetify";
 import vuetify from "./plugins/vuetify";
-import VueTheMask from "vue-the-mask";
+import VueMask from "v-mask";
 import { firestorePlugin } from "vuefire";
 
 Vue.use(firestorePlugin);
-Vue.use(VueTheMask);
+Vue.use(VueMask);
 
 Vue.config.productionTip = false;
 
