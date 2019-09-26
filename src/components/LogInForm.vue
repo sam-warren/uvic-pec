@@ -1,5 +1,5 @@
 <template>
-  <v-content class="mx-4 mb-4 my-4">
+  <v-content class="mx-4 my-4">
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">

@@ -9,6 +9,12 @@ export const ClubSignUpActions: ActionTree<ClubSignUpFormTypes, RootState> = {
     lastName(context: any, payload: string) {
         context.commit("lastName", payload);
     },
+    email(context: any, payload: string) {
+        context.commit("email", payload);
+    },
+    phoneNumber(context: any, payload: string) {
+        context.commit("phoneNumber", payload);
+    },
     birthdate(context: any, payload: string) {
         context.commit("birthdate", payload);
     },

@@ -1,6 +1,8 @@
 export interface ClubSignUpFormTypes {
     firstName: string;
     lastName: string;
+    email: string;
+    phoneNumber: string;
     birthdate: string;
     isUvicStudent: boolean;
     studentNumber?: string;

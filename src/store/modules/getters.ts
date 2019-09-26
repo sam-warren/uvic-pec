@@ -9,6 +9,12 @@ export const ClubSignUpFormGetters: GetterTree<ClubSignUpFormTypes, RootState> =
     lastName(state: ClubSignUpFormTypes): string {
         return state.lastName || "";
     },
+    email(state: ClubSignUpFormTypes): string {
+        return state.email || "";
+    },
+    phoneNumber(state: ClubSignUpFormTypes): string {
+        return state.phoneNumber || "";
+    },
     birthdate(state: ClubSignUpFormTypes): string {
         return state.birthdate || "";
     },

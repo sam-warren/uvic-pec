@@ -8,6 +8,12 @@ export const ClubSignUpFormMutations: MutationTree<ClubSignUpFormTypes> = {
     lastName(state: ClubSignUpFormTypes, payload: string) {
         state.lastName = payload;
     },
+    email(state: ClubSignUpFormTypes, payload: string) {
+        state.email = payload;
+    },
+    phoneNumber(state: ClubSignUpFormTypes, payload: string) {
+        state.phoneNumber = payload;
+    },
     birthdate(state: ClubSignUpFormTypes, payload: string) {
         state.birthdate = payload;
     },
