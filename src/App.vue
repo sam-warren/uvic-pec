@@ -2,37 +2,49 @@
   <v-app class="grey">
     <div id="app">
       <v-app-bar app>
-        <v-icon/>
+        <v-icon />
         <!-- <v-img :src="require('@/assets/logo-black-scalable.svg')"></v-img> -->
-          <v-toolbar-title class="headline text-uppercase">
+        <v-toolbar-title class="headline text-uppercase">
+          <router-link to="/" id="header-link">
             <span class="font-weight-light">UVic </span>
             <span>PEC</span>
-          </v-toolbar-title>
+          </router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn class="mr-4" text @click="navTo('trips')">
           <span>Trips</span>
-        </v-btn> 
+        </v-btn>
         <v-btn class="primary mr-4" text @click="navTo('signup')">
           <span>Sign Up</span>
         </v-btn>
       </v-app-bar>
-      <router-view/>
+      <router-view />
+      <!-- <v-footer align="center" justify="center"> 
+        <v-col>
+        </v-col>
+      </v-footer> -->
     </div>
   </v-app>
 </template>
 
 <script>
-import Vue from "vue";
-import firebase from "firebase/app";
-export default Vue.extend({
-  name: "App",
-  data: () => ({
-    //
-  }),
-  methods: {
-    navTo(route) {
-      this.$router.push(route);
+  import Vue from "vue";
+  import firebase from "firebase/app";
+  export default Vue.extend({
+    name: "App",
+    data: () => ({
+      //
+    }),
+    methods: {
+      navTo(route) {
+        this.$router.push(route);
+      },
     },
-  },
-});
+  });
 </script>
+<style scoped>
+#header-link {
+  text-decoration: inherit;
+  color: inherit;
+}
+</style>
