@@ -1,5 +1,5 @@
 import { ActionTree } from "vuex";
-import { ClubSignUpFormTypes, EmergencyContactTypes } from "./types";
+import { EmergencyContactTypes, AppTypes } from "./types";
 import { RootState } from "../types";
 
 export const EmergencyContactActions: ActionTree<EmergencyContactTypes, RootState> = {
@@ -18,4 +18,10 @@ export const EmergencyContactActions: ActionTree<EmergencyContactTypes, RootStat
     destroy(context: any) {
         context.commit("destory");
     },
+};
+
+export const AppActions: ActionTree<AppTypes, RootState> = {
+    formType(context: any, payload: string) {
+        context.commit("formType", payload);
+    }
 };

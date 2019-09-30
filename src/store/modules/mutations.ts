@@ -1,5 +1,5 @@
 import { MutationTree } from "vuex";
-import { EmergencyContactTypes } from "./types";
+import { EmergencyContactTypes, AppTypes } from "./types";
 
 export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
     firstName(state: EmergencyContactTypes, payload: string) {
@@ -19,5 +19,11 @@ export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
         state.lastName = "";
         state.relation = "";
         state.phoneNumber = "";
+    }
+};
+
+export const AppMutations: MutationTree<AppTypes> = {
+    formTypes(state: AppTypes, payload: string) {
+        state.formType = payload;
     }
 };

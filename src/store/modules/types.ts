@@ -5,6 +5,10 @@ export interface EmergencyContactTypes {
     phoneNumber: string;
 }
 
+export interface AppTypes {
+    formType: string;
+}
+
 // export interface TripSignUpFormTypes {
 //     attendeeType: string;
 //     numPassengers: number;

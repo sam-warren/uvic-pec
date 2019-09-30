@@ -1,5 +1,5 @@
 import { GetterTree } from "vuex";
-import { ClubSignUpFormTypes, EmergencyContactTypes } from "./types";
+import { EmergencyContactTypes, AppTypes } from "./types";
 import { RootState } from "../types";
 
 export const EmergencyContactGetters: GetterTree<EmergencyContactTypes, RootState> = {
@@ -15,4 +15,10 @@ export const EmergencyContactGetters: GetterTree<EmergencyContactTypes, RootStat
     phoneNumber(state: EmergencyContactTypes): string {
         return state.phoneNumber || "";
     },
+};
+
+export const AppGetters: GetterTree<AppTypes, RootState> = {
+    formType(state: AppTypes): string {
+        return state.formType || "";
+    }
 };
