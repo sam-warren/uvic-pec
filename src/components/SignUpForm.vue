@@ -12,35 +12,70 @@
             <v-form ref="form" @submit="submitForm">
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-text-field label="First Name" validate-on-blur v-model="firstName" :rules="requiredFieldRules"
-                    prepend-icon="person"></v-text-field>
+                  <v-text-field
+                    label="First Name"
+                    validate-on-blur
+                    v-model="signUpForm.firstName"
+                    :rules="requiredFieldRules"
+                    prepend-icon="person"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <v-text-field label="Last Name" validate-on-blur :rules="requiredFieldRules" v-model="lastName">
-                  </v-text-field>
+                  <v-text-field
+                    label="Last Name"
+                    validate-on-blur
+                    :rules="requiredFieldRules"
+                    v-model="signUpForm.lastName"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <v-text-field type="email" label="Email" :rules="emailRules" v-model="email" prepend-icon="email"
-                    validate-on-blur></v-text-field>
+                  <v-text-field
+                    type="email"
+                    label="Email"
+                    :rules="emailRules"
+                    v-model="signUpForm.email"
+                    prepend-icon="email"
+                    validate-on-blur
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-text-field v-model="phoneNumber" type="tel" v-mask="'+1 (###) ### ####'" label="Phone Number"
-                    :rules="requiredFieldRules" prepend-icon="phone" validate-on-blur name="phoneNumber"></v-text-field>
+                  <v-text-field
+                    v-model="signUpForm.phoneNumber"
+                    type="tel"
+                    v-mask="'+1 (###) ### ####'"
+                    label="Phone Number"
+                    :rules="phoneNumberRules"
+                    prepend-icon="phone"
+                    validate-on-blur
+                    name="phoneNumber"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
-                  <v-text-field type="text" label="Birthdate (YYYY/MM/DD)" prepend-icon="event" :rules="birthdateRules"
-                    v-model="birthdate" validate-on-blur v-mask="'####/##/##'"></v-text-field>
+                  <v-text-field
+                    type="text"
+                    label="Birthdate (YYYY/MM/DD)"
+                    prepend-icon="event"
+                    :rules="birthdateRules"
+                    v-model="signUpForm.birthdate"
+                    validate-on-blur
+                    v-mask="'####/##/##'"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row wrap mb-2>
                 <v-flex mx-4>
-                  <v-checkbox v-model="isUvicStudent" label="I am a UVic student" />
+                  <v-checkbox v-model="signUpForm.isUvicStudent" label="I am a UVic student" />
                 </v-flex>
-                <v-flex mx-4 v-if="isUvicStudent">
-                  <v-text-field v-model="studentNumber" :rules="studentNumberRules" validate-on-blur
-                    v-mask="'V########'" label="Student Number"></v-text-field>
+                <v-flex mx-4 v-if="signUpForm.isUvicStudent">
+                  <v-text-field
+                    v-model="signUpForm.studentNumber"
+                    :rules="studentNumberRules"
+                    validate-on-blur
+                    v-mask="'V########'"
+                    label="Student Number"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-divider></v-divider>
@@ -48,23 +83,35 @@
               <EmergencyContact />
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-subheader>If you have any medical conditions you think we should know about, please list them
+                  <v-subheader>
+                    If you have any medical conditions you think we should know about, please list them
                     below.
                   </v-subheader>
-                  <v-textarea rows="2" v-model="medicalConditions"></v-textarea>
+                  <v-textarea rows="2" v-model="signUpForm.medicalConditions"></v-textarea>
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
                 <v-flex mx-4>
-                  <v-text-field type="password" validate-on-blur :rules="passwordRules" validate-on-blur
-                    label="Create Password" v-model="password" prepend-icon="lock"></v-text-field>
+                  <v-text-field
+                    type="password"
+                    validate-on-blur
+                    :rules="passwordRules"
+                    label="Create Password"
+                    v-model="signUpForm.password"
+                    prepend-icon="lock"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row wrap mb-4>
                 <v-flex mx-4>
-                  <v-text-field type="password" label="Confirm Password" :rules="[checkPasswordConfirm]"
-                    validate-on-blur v-model="passwordConfirm" prepend-icon="lock">
-                  </v-text-field>
+                  <v-text-field
+                    type="password"
+                    label="Confirm Password"
+                    :rules="[checkPasswordConfirm]"
+                    validate-on-blur
+                    v-model="signUpForm.passwordConfirm"
+                    prepend-icon="lock"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout>
@@ -82,197 +129,147 @@
   </v-content>
 </template>
 <script>
-  import { mapState } from "vuex";
-  import EmergencyContact from "@/components/EmergencyContact.vue";
-  import { app } from "@/firebase.ts";
-  import firebase from "firebase/app";
-  import "firebase/auth";
-  import "firebase/firestore";
-  export default {
-    components: {
-      EmergencyContact,
-    },
-    data: () => ({
-      isLoading: false,
-      requiredFieldRules: [
-        (v) => !!v || "This field is required",
-      ],
-      emailRules: [
-        (v) => !!v || "This field is required",
-        (v) => /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || "Email is icorrectly formatted",
-      ],
-      studentNumberRules: [
-        (v) => !!v || "This field is required",
-        (v) => /([V]\d{8})/.test(v) || "Student number is incorrectly formatted",
-      ],
-      birthdateRules: [
-        (v) => !!v || "This field is required",
-        (v) => /\d{4}\/\d{2}\/\d{2}/.test(v) || "Date is incorrectly formatted",
-      ],
-      passwordRules: [
-        (v) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(v) || "Password must be between 6 and 20 characters containing at least one uppercase letter and one digit",
-      ],
-      passwordConfirmRules: [
-        (v) => !!v || "Please confirm your password",
-        (v) => v === password || "Passwords do not match",
-      ],
-      password: "",
-      passwordConfirm: "",
-      errorMessage: "",
+import { mapState } from "vuex";
+import EmergencyContact from "@/components/EmergencyContact.vue";
+import { app } from "@/firebase.ts";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+export default {
+  components: {
+    EmergencyContact
+  },
+  data: () => ({
+    isLoading: false,
+    signUpForm: {
       userId: "",
-    }),
-    methods: {
-      submitForm() {
-        if (this.$refs.form.validate()) {
-          this.isLoading = true;
-          firebase
-            .auth()
-            .createUserWithEmailAndPassword(
-              this.email,
-              this.password,
-            )
-            .then((res) => {
-              // Store user in DB
-              delete this.password;
-              delete this.passwordConfirm;
-              this.userId = res.user.uid;
-              res.user.updateProfile({
-                displayName: this.firstName,
-                email: this.email,
-              });
-              firebase
-                .firestore()
-                .collection("users")
-                .add({
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  email: this.email,
-                  phoneNumber: this.phoneNumber,
-                  birthdate: this.birthdate,
-                  isUvicStudent: this.isUvicStudent,
-                  studentNumber: this.studentNumber,
-                  emergencyContact: {
-                    firstName: this.$store.getters["EmergencyContact/firstName"],
-                    lastName: this.$store.getters["EmergencyContact/lastName"],
-                    relation: this.$store.getters["EmergencyContact/relation"],
-                    phoneNumber: this.$store.getters["EmergencyContact/phoneNumber"],
-                  },
-                  medicalConditions: this.medicalConditions,
-                });
-              res.user
-                .sendEmailVerification()
-                .then(() => {
-                  console.log("Email sent to new user");
-                })
-                .catch((err) => {
-                  console.error(err.message);
-                });
-              console.log(
-                "User",
-                this.firstName,
-                this.lastName,
-                "signed up successfully",
-              );
-              this.isLoading = false;
-              this.$router.push({ path: "/" });
-            })
-            .catch((err) => {
-              console.error(err); // TODO: Enable error message on form if email already in
-              if (err.code === "auth/email-already-in-use") {
-                const badEmail = this.email;
-                this.emailRules = [
-                  (v) => v !== badEmail || "Email already in use",
-                  (v) => !!v || "This field is required",
-                  (v) => /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || "Email is icorrectly formatted",
-                ];
-              }
-              this.isLoading = false;
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      birthDate: "",
+      isUvicStudent: false,
+      studentNumber: "",
+      medicalConditions: "",
+      password: "",
+      passwordConfirm: ""
+    },
+    requiredFieldRules: [v => !!v || "This field is required"],
+    emailRules: [
+      v => !!v || "This field is required",
+      v =>
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          v
+        ) || "Email is icorrectly formatted"
+    ],
+    studentNumberRules: [
+      v => !!v || "This field is required",
+      v => /([V]\d{8})/.test(v) || "Student number is incorrectly formatted"
+    ],
+    birthdateRules: [
+      v => !!v || "This field is required",
+      v => /\d{4}\/\d{2}\/\d{2}/.test(v) || "Date is incorrectly formatted"
+    ],
+    passwordRules: [
+      v =>
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(v) ||
+        "Password must be between 6 and 20 characters containing at least one uppercase letter and one digit"
+    ],
+    passwordConfirmRules: [
+      v => !!v || "Please confirm your password",
+      v => v === password || "Passwords do not match"
+    ],
+    phoneNumberRules: [
+      v => !!v || "This field is required",
+      v => v.length === 17 || "Phone number is incorrectly formatted"
+    ],
+    errorMessage: "",
+    userId: ""
+  }),
+  methods: {
+    submitForm() {
+      if (this.$refs.form.validate()) {
+        this.isLoading = true;
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(
+            this.signUpForm.email,
+            this.signUpForm.password
+          )
+          .then(res => {
+            // Store user in DB
+            delete this.signUpForm.password;
+            delete this.signUpForm.passwordConfirm;
+            this.signUpForm.userId = res.user.uid;
+            res.user.updateProfile({
+              displayName: this.signUpForm.firstName,
+              email: this.signUpForm.email
             });
-        }
-      },
-      checkPasswordConfirm(value) {
-        if (value.length === 0) {
-          return "Please confirm your password";
-        } else if (value !== this.password) {
-          return "Passwords do not match";
-        } else {
-          return true;
-        }
-      },
+            firebase
+              .firestore()
+              .collection("users")
+              .add({
+                firstName: this.signUpForm.firstName,
+                lastName: this.signUpForm.lastName,
+                email: this.signUpForm.email,
+                phoneNumber: this.signUpForm.phoneNumber,
+                birthdate: this.signUpForm.birthdate,
+                isUvicStudent: this.signUpForm.isUvicStudent,
+                studentNumber: this.signUpForm.studentNumber,
+                emergencyContact: {
+                  firstName: this.$store.getters["EmergencyContact/firstName"],
+                  lastName: this.$store.getters["EmergencyContact/lastName"],
+                  relation: this.$store.getters["EmergencyContact/relation"],
+                  phoneNumber: this.$store.getters[
+                    "EmergencyContact/phoneNumber"
+                  ]
+                },
+                medicalConditions: this.signUpForm.medicalConditions
+              });
+            res.user
+              .sendEmailVerification()
+              .then(() => {
+                console.log("Email sent to new user");
+              })
+              .catch(err => {
+                console.error(err.message);
+              });
+            console.log(
+              "User",
+              this.signUpForm.firstName,
+              this.signUpForm.lastName,
+              "signed up successfully"
+            );
+            this.$store.dispatch("EmergencyContact/destroy");
+            this.isLoading = false;
+            this.$router.push({ path: "/" });
+          })
+          .catch(err => {
+            console.error(err); // TODO: Enable error message on form if email already in
+            if (err.code === "auth/email-already-in-use") {
+              const badEmail = this.signUpForm.email;
+              this.emailRules = [
+                v => v !== badEmail || "This email is already in use",
+                v => !!v || "This field is required",
+                v =>
+                  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                    v
+                  ) || "Email is icorrectly formatted"
+              ];
+            }
+            this.isLoading = false;
+          });
+      }
     },
-    computed: {
-      ...mapState({
-        ClubSignUpForm: (state) => state.ClubSignUpForm,
-      }),
-      firstName: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/firstName"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/firstName", value);
-        },
-      },
-      lastName: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/lastName"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/lastName", value);
-        },
-      },
-      email: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/email"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/email", value);
-        },
-      },
-      phoneNumber: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/phoneNumber"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/phoneNumber", value);
-        },
-      },
-      birthdate: {
-        // getter
-        get() {
-          return this.$store.getters["ClubSignUpForm/birthdate"];
-        },
-        // setter
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/birthdate", value);
-        },
-      },
-      isUvicStudent: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/isUvicStudent"];
-        },
-        set(value) {
-          if (!value) {
-            this.$store.dispatch("ClubSignUpForm/studentNumber", "");
-          }
-          this.$store.dispatch("ClubSignUpForm/isUvicStudent", value);
-        },
-      },
-      studentNumber: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/studentNumber"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/studentNumber", value);
-        },
-      },
-      medicalConditions: {
-        get() {
-          return this.$store.getters["ClubSignUpForm/medicalConditions"];
-        },
-        set(value) {
-          this.$store.dispatch("ClubSignUpForm/medicalConditions", value);
-        },
-      },
-    },
-  };
+    checkPasswordConfirm(value) {
+      if (value.length === 0) {
+        return "Please confirm your password";
+      } else if (value !== this.signUpForm.password) {
+        return "Passwords do not match";
+      } else {
+        return true;
+      }
+    }
+  }
+};
 </script>

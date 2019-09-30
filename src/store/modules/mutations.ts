@@ -1,32 +1,5 @@
 import { MutationTree } from "vuex";
-import { ClubSignUpFormTypes, EmergencyContactTypes } from "./types";
-
-export const ClubSignUpFormMutations: MutationTree<ClubSignUpFormTypes> = {
-    firstName(state: ClubSignUpFormTypes, payload: string) {
-        state.firstName = payload;
-    },
-    lastName(state: ClubSignUpFormTypes, payload: string) {
-        state.lastName = payload;
-    },
-    email(state: ClubSignUpFormTypes, payload: string) {
-        state.email = payload;
-    },
-    phoneNumber(state: ClubSignUpFormTypes, payload: string) {
-        state.phoneNumber = payload;
-    },
-    birthdate(state: ClubSignUpFormTypes, payload: string) {
-        state.birthdate = payload;
-    },
-    isUvicStudent(state: ClubSignUpFormTypes, payload: boolean) {
-        state.isUvicStudent = payload;
-    },
-    studentNumber(state: ClubSignUpFormTypes, payload: string) {
-        state.studentNumber = payload;
-    },
-    medicalConditions(state: ClubSignUpFormTypes, payload: string) {
-        state.medicalConditions = payload;
-    },
-};
+import { EmergencyContactTypes } from "./types";
 
 export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
     firstName(state: EmergencyContactTypes, payload: string) {
@@ -41,4 +14,10 @@ export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
     phoneNumber(state: EmergencyContactTypes, payload: string) {
         state.phoneNumber = payload;
     },
+    destroy(state: EmergencyContactTypes) {
+        state.firstName = "";
+        state.lastName = "";
+        state.relation = "";
+        state.phoneNumber = "";
+    }
 };

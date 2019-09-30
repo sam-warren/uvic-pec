@@ -1,22 +1,13 @@
 import { Module } from "vuex";
-
-import { ClubSignUpFormTypes, EmergencyContactTypes } from "./types";
 import { RootState } from "../types";
 
-import { ClubSignUpFormState, EmergencyContactState } from "./state";
-import { ClubSignUpFormGetters, EmergencyContactGetters } from "./getters";
-import { ClubSignUpActions, EmergencyContactActions } from "./actions";
-import { ClubSignUpFormMutations, EmergencyContactMutations } from "./mutations";
+import { EmergencyContactTypes } from "./types";
+import { EmergencyContactState } from "./state";
+import { EmergencyContactGetters } from "./getters";
+import { EmergencyContactActions } from "./actions";
+import { EmergencyContactMutations } from "./mutations";
 
 const namespaced: boolean = true;
-
-export const ClubSignUpForm: Module<ClubSignUpFormTypes, RootState> = {
-    namespaced,
-    state: ClubSignUpFormState,
-    getters: ClubSignUpFormGetters,
-    actions: ClubSignUpActions,
-    mutations: ClubSignUpFormMutations,
-};
 
 export const EmergencyContact: Module<EmergencyContactTypes, RootState> = {
     namespaced,

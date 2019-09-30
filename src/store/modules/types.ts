@@ -1,14 +1,3 @@
-export interface ClubSignUpFormTypes {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    birthdate: string;
-    isUvicStudent: boolean;
-    studentNumber?: string;
-    medicalConditions: string;
-}
-
 export interface EmergencyContactTypes {
     firstName: string;
     lastName: string;
