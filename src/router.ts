@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
-import Authentication from "./views/Authentication.vue";
+import SignUp from "./views/SignUp.vue";
+import LogIn from "./views/LogIn.vue";
+import ForgotPassword from "./views/ForgotPassword.vue";
 
 Vue.use(Router);
 
@@ -17,7 +19,17 @@ export default new Router({
     {
       path: "/signup",
       name: "signup",
-      component: Authentication,
+      component: SignUp,
     },
+    {
+      path: "/login",
+      name: "login",
+      component: LogIn,
+    },
+    {
+      path: "/forgotpassword",
+      name: "forgotpassword",
+      component: ForgotPassword,
+    }
   ],
 });

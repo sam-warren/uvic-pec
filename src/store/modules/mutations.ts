@@ -23,7 +23,7 @@ export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
 };
 
 export const AppMutations: MutationTree<AppTypes> = {
-    formTypes(state: AppTypes, payload: string) {
+    formType(state: AppTypes, payload: string) {
         state.formType = payload;
     }
 };

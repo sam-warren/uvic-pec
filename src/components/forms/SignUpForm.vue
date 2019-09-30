@@ -130,7 +130,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import EmergencyContact from "@/components/EmergencyContact.vue";
+import EmergencyContact from "@/components/forms/EmergencyContactForm.vue";
 import { app } from "@/firebase.ts";
 import firebase from "firebase/app";
 import "firebase/auth";

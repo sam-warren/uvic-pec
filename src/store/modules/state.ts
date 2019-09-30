@@ -8,5 +8,5 @@ export const EmergencyContactState: EmergencyContactTypes = {
 };
 
 export const AppState: AppTypes = {
-    formType: "signUp",
+    formType: "logIn",
 };
