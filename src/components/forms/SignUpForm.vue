@@ -80,7 +80,42 @@
               </v-layout>
               <v-divider></v-divider>
               <v-subheader class="mt-2">Emergency Contact Information</v-subheader>
-              <EmergencyContact />
+              <v-layout row wrap>
+                <v-flex mx-4>
+                  <v-text-field
+                    label="First Name"
+                    :rules="requiredFieldRules"
+                    prepend-icon="person"
+                    v-model="signUpForm.emergencyContact.firstName"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex mx-4>
+                  <v-text-field
+                    label="Last Name"
+                    :rules="requiredFieldRules"
+                    v-model="signUpForm.emergencyContact.lastName"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap>
+                <v-flex mx-4>
+                  <v-text-field
+                    label="Relation"
+                    :rules="requiredFieldRules"
+                    prepend-icon="people"
+                    v-model="signUpForm.emergencyContact.relation"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex mx-4>
+                  <v-text-field
+                    label="Phone Number"
+                    prepend-icon="phone"
+                    :rules="phoneNumberRules"
+                    v-mask="'+1 (###) ### ####'"
+                    v-model="signUpForm.emergencyContact.phoneNumber"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
               <v-layout row wrap>
                 <v-flex mx-4>
                   <v-subheader>
@@ -130,15 +165,11 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import EmergencyContact from "@/components/forms/EmergencyContactForm.vue";
 import { app } from "@/firebase.ts";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 export default {
-  components: {
-    EmergencyContact
-  },
   data: () => ({
     isLoading: false,
     signUpForm: {
@@ -150,6 +181,12 @@ export default {
       birthDate: "",
       isUvicStudent: false,
       studentNumber: "",
+      emergencyContact: {
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        relation: ""
+      },
       medicalConditions: "",
       password: "",
       passwordConfirm: ""
@@ -217,12 +254,10 @@ export default {
                 isUvicStudent: this.signUpForm.isUvicStudent,
                 studentNumber: this.signUpForm.studentNumber,
                 emergencyContact: {
-                  firstName: this.$store.getters["EmergencyContact/firstName"],
-                  lastName: this.$store.getters["EmergencyContact/lastName"],
-                  relation: this.$store.getters["EmergencyContact/relation"],
-                  phoneNumber: this.$store.getters[
-                    "EmergencyContact/phoneNumber"
-                  ]
+                  firstName: this.signUpForm.emergencyContact.firstName,
+                  lastName: this.signUpForm.emergencyContact.lastName,
+                  relation: this.signUpForm.emergencyContact.phoneNumber,
+                  phoneNumber: this.signUpForm.emergencyContact.relation
                 },
                 medicalConditions: this.signUpForm.medicalConditions
               });

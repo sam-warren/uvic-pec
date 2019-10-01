@@ -9,8 +9,32 @@
 
 <script>
 import Vue from "vue";
-
+import firebase from "firebase/app";
 export default {
-
+  data: () => ({
+    currentUserName: "",
+    currentUserEmail: "",
+    showAlert: false,
+  }),
+  methods: {
+    getCurrentUser() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          console.log("User ID: ", user.uid);
+          this.currentUserName = user.displayName;
+          this.currentUserEmail = user.email;
+          if (!user.emailVerified) {
+            this.showAlert = true;
+          }
+        } else {
+          this.currentUserName = "stranger";
+          this.currentUserEmail = "";
+        }
+      });
+    },
+    beforeMount() {
+      this.getCurrentUser();
+    }
+  }
 };
 </script>

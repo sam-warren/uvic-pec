@@ -1,19 +1,14 @@
-export interface EmergencyContactTypes {
-    firstName: string;
-    lastName: string;
-    relation: string;
-    phoneNumber: string;
-}
-
 export interface AppTypes {
     formType: string;
+    theme: string;
 }
 
-// export interface TripSignUpFormTypes {
-//     attendeeType: string;
-//     numPassengers: number;
-//     hasSignedLiabilityWaiver: boolean;
-// }
+export interface CurrentUserTypes {
+    uid: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+}
 
 // export interface CurrentUserTypes {
 //     firstName: string;

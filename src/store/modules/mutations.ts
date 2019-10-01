@@ -1,29 +1,26 @@
 import { MutationTree } from "vuex";
-import { EmergencyContactTypes, AppTypes } from "./types";
-
-export const EmergencyContactMutations: MutationTree<EmergencyContactTypes> = {
-    firstName(state: EmergencyContactTypes, payload: string) {
-        state.firstName = payload;
-    },
-    lastName(state: EmergencyContactTypes, payload: string) {
-        state.lastName = payload;
-    },
-    relation(state: EmergencyContactTypes, payload: string) {
-        state.relation = payload;
-    },
-    phoneNumber(state: EmergencyContactTypes, payload: string) {
-        state.phoneNumber = payload;
-    },
-    destroy(state: EmergencyContactTypes) {
-        state.firstName = "";
-        state.lastName = "";
-        state.relation = "";
-        state.phoneNumber = "";
-    }
-};
+import { AppTypes, CurrentUserTypes } from "./types";
 
 export const AppMutations: MutationTree<AppTypes> = {
     formType(state: AppTypes, payload: string) {
         state.formType = payload;
+    },
+    theme(state: AppTypes, payload: string) {
+        state.formType = payload;
     }
+};
+
+export const CurrentUserMutations: MutationTree<CurrentUserTypes> = {
+    uid(state: CurrentUserTypes, payload: string) {
+        state.uid = payload;
+    },
+    firstName(state: CurrentUserTypes, payload: string) {
+        state.firstName = payload;
+    },
+    lastName(state: CurrentUserTypes, payload: string) {
+        state.lastName = payload;
+    },
+    email(state: CurrentUserTypes, payload: string) {
+        state.email = payload;
+    },
 };

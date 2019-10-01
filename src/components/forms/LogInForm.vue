@@ -67,10 +67,10 @@ export default {
           this.loginForm.email,
           this.loginForm.password
         )
-        .then(() => {
+        .then((res) => {
           console.log("User signed in");
           this.isLoading = false;
-          this.$router.push({ path: "/" });
+          this.$router.push("/");
         })
         .catch(err => {
           this.isLoading = false;

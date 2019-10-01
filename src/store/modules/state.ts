@@ -1,12 +1,13 @@
-import { EmergencyContactTypes, AppTypes } from "./types";
-
-export const EmergencyContactState: EmergencyContactTypes = {
-    firstName: "",
-    lastName: "",
-    relation: "",
-    phoneNumber: "",
-};
+import { AppTypes, CurrentUserTypes } from "./types";
 
 export const AppState: AppTypes = {
     formType: "logIn",
+    theme: "dark"
+};
+
+export const CurrentUserState: CurrentUserTypes = {
+    uid: "",
+    firstName: "",
+    lastName: "",
+    email: "",
 };

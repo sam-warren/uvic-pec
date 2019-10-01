@@ -1,21 +1,13 @@
 import { Module } from "vuex";
 import { RootState } from "../types";
 
-import { EmergencyContactTypes, AppTypes } from "./types";
-import { EmergencyContactState, AppState } from "./state";
-import { EmergencyContactGetters, AppGetters } from "./getters";
-import { EmergencyContactActions, AppActions } from "./actions";
-import { EmergencyContactMutations, AppMutations } from "./mutations";
+import { AppTypes, CurrentUserTypes } from "./types";
+import { AppState, CurrentUserState } from "./state";
+import { AppGetters, CurrentUserGetters } from "./getters";
+import { AppActions, CurrentUserActions } from "./actions";
+import { AppMutations, CurrentUserMutations } from "./mutations";
 
 const namespaced: boolean = true;
-
-export const EmergencyContact: Module<EmergencyContactTypes, RootState> = {
-    namespaced,
-    state: EmergencyContactState,
-    getters: EmergencyContactGetters,
-    actions: EmergencyContactActions,
-    mutations: EmergencyContactMutations,
-};
 
 export const App: Module<AppTypes, RootState> = {
     namespaced,
@@ -23,4 +15,12 @@ export const App: Module<AppTypes, RootState> = {
     getters: AppGetters,
     actions: AppActions,
     mutations: AppMutations,
+};
+
+export const CurrentUser: Module<CurrentUserTypes, RootState> = {
+    namespaced,
+    state: CurrentUserState,
+    getters: CurrentUserGetters,
+    actions: CurrentUserActions,
+    mutations: CurrentUserMutations,
 };

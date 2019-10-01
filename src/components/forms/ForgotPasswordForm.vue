@@ -48,17 +48,14 @@ export default {
         .sendPasswordResetEmail(this.email)
         .then(() => {
           this.isLoading = false;
-          this.navTo("/");
+          this.$router.push("/");
         })
         .catch(err => {
           this.isLoading = false;
           this.errorMessage = err.message;
-          console.error(this.errorMessage)
+          console.error(this.errorMessage);
         });
     },
-    navTo(value) {
-      this.$router.push(value);
-    }
   }
 };
 </script>

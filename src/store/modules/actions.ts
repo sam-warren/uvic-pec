@@ -1,27 +1,33 @@
 import { ActionTree } from "vuex";
-import { EmergencyContactTypes, AppTypes } from "./types";
+import { AppTypes, CurrentUserTypes } from "./types";
 import { RootState } from "../types";
 
-export const EmergencyContactActions: ActionTree<EmergencyContactTypes, RootState> = {
+export const AppActions: ActionTree<AppTypes, RootState> = {
+    formType(context: any, payload: string) {
+        context.commit("formType", payload);
+    },
+    theme(context: any, payload: string) {
+        context.commit("theme", payload);
+    }
+};
+
+export const CurrentUserActions: ActionTree<CurrentUserTypes, RootState> = {
+    uid(context: any, payload: string) {
+        context.commit("uid", payload);
+    },
     firstName(context: any, payload: string) {
         context.commit("firstName", payload);
     },
     lastName(context: any, payload: string) {
         context.commit("lastName", payload);
     },
-    relation(context: any, payload: string) {
-        context.commit("relation", payload);
+    email(context: any, payload: string) {
+        context.commit("email", payload);
     },
-    phoneNumber(context: any, payload: string) {
-        context.commit("phoneNumber", payload);
-    },
-    destroy(context: any) {
-        context.commit("destory");
-    },
-};
-
-export const AppActions: ActionTree<AppTypes, RootState> = {
-    formType(context: any, payload: string) {
-        context.commit("formType", payload);
+    logOut(context: any) {
+        context.commit("uid", "");
+        context.commit("firstName", "");
+        context.commit("lastName", "");
+        context.commit("email", "");
     }
 };
