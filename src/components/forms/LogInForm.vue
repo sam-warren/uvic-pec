@@ -68,7 +68,7 @@ export default {
           this.loginForm.password
         )
         .then((res) => {
-          console.log("User signed in");
+          console.log("User signed in", res);
           this.isLoading = false;
           this.$router.push("/");
         })

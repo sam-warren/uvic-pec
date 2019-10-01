@@ -3,9 +3,6 @@ import { AppTypes, CurrentUserTypes } from "./types";
 import { RootState } from "../types";
 
 export const AppActions: ActionTree<AppTypes, RootState> = {
-    formType(context: any, payload: string) {
-        context.commit("formType", payload);
-    },
     theme(context: any, payload: string) {
         context.commit("theme", payload);
     }

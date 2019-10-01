@@ -1,5 +1,4 @@
 export interface AppTypes {
-    formType: string;
     theme: string;
 }
 
@@ -8,6 +7,7 @@ export interface CurrentUserTypes {
     firstName: string;
     lastName: string;
     email: string;
+    userType: string;
 }
 
 // export interface CurrentUserTypes {

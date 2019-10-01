@@ -46,7 +46,8 @@ export default {
       firebase
         .auth()
         .sendPasswordResetEmail(this.email)
-        .then(() => {
+        .then((res) => {
+          console.log("Forgotten password email sent", res);
           this.isLoading = false;
           this.$router.push("/");
         })

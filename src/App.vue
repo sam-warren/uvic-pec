@@ -46,9 +46,9 @@ export default Vue.extend({
       firebase
         .auth()
         .signOut()
-        .then(() => {
+        .then((res) => {
           // Redirect to home
-          console.log("User signed out successfully");
+          console.log("User signed out successfully", res);
           this.$router.push("/");
         })
         .catch(err => {

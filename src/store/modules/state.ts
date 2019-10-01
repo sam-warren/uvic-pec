@@ -1,7 +1,6 @@
 import { AppTypes, CurrentUserTypes } from "./types";
 
 export const AppState: AppTypes = {
-    formType: "logIn",
     theme: "dark"
 };
 
@@ -10,4 +9,5 @@ export const CurrentUserState: CurrentUserTypes = {
     firstName: "",
     lastName: "",
     email: "",
+    userType: "user"
 };

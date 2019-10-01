@@ -273,7 +273,8 @@ export default {
               "User",
               this.signUpForm.firstName,
               this.signUpForm.lastName,
-              "signed up successfully"
+              "signed up successfully",
+              res
             );
             this.$store.dispatch("EmergencyContact/destroy");
             this.isLoading = false;
