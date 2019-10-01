@@ -4,6 +4,7 @@ export interface AppTypes {
 
 export interface CurrentUserTypes {
     uid: string;
+    hasVerified: boolean;
     firstName: string;
     lastName: string;
     email: string;

@@ -1,4 +1,5 @@
 import { MutationTree } from "vuex";
+import firebase from "firebase/app";
 import { AppTypes, CurrentUserTypes } from "./types";
 
 export const AppMutations: MutationTree<AppTypes> = {
@@ -19,5 +20,18 @@ export const CurrentUserMutations: MutationTree<CurrentUserTypes> = {
   },
   email(state: CurrentUserTypes, payload: string) {
     state.email = payload;
-  }
+  },
+  logOut(state: CurrentUserTypes) {
+    state.uid = "";
+    state.firstName = "";
+    state.lastName = "";
+    state.email = "";
+  },
+  async syncUserData(state: CurrentUserTypes, payload: any) {
+    state.uid = payload.uid;
+    state.firstName = payload.firstName;
+    state.lastName = payload.lastName;
+    state.email = payload.email;
+    state.hasVerified = await firebase.auth().currentUser!.emailVerified;
+  },
 };

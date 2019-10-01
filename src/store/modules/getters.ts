@@ -12,6 +12,9 @@ export const CurrentUserGetters: GetterTree<CurrentUserTypes, RootState> = {
   uid(state: CurrentUserTypes): string {
     return state.uid || "";
   },
+  hasVerified(state: CurrentUserTypes): boolean {
+    return state.hasVerified || false;
+  },
   firstName(state: CurrentUserTypes): string {
     return state.firstName || "";
   },
@@ -20,5 +23,8 @@ export const CurrentUserGetters: GetterTree<CurrentUserTypes, RootState> = {
   },
   email(state: CurrentUserTypes): string {
     return state.email || "";
+  },
+  admin(state: CurrentUserTypes): boolean {
+    return state.admin || false;
   }
 };

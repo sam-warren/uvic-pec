@@ -13,6 +13,7 @@
                   v-model="loginForm.email"
                   label="Email"
                   name="email"
+                  :rules="emailRules"
                   prepend-icon="person"
                   type="text"
                 ></v-text-field>
@@ -20,6 +21,7 @@
                   v-model="loginForm.password"
                   label="Password"
                   name="password"
+                  :rules="passwordRules"
                   prepend-icon="lock"
                   type="password"
                 ></v-text-field>
@@ -47,7 +49,7 @@
   </v-content>
 </template>
 <script>
-import firebase from "firebase/app";
+import firebase, { firestore } from "firebase/app";
 
 export default {
   data: () => ({
@@ -56,8 +58,17 @@ export default {
     loginForm: {
       email: "",
       password: ""
-    }
+    },
+    emailRules: [],
+    passwordRules: []
   }),
+  watch: {
+    user(auth) {
+      if (!!auth) {
+        this.$router.replace(this.nextRoute);
+      }
+    }
+  },
   methods: {
     logIn() {
       this.isLoading = true;
@@ -67,19 +78,32 @@ export default {
           this.loginForm.email,
           this.loginForm.password
         )
-        .then((res) => {
-          console.log("User signed in", res);
+        .then(() => {
           this.isLoading = false;
           this.$router.push("/");
         })
         .catch(err => {
           this.isLoading = false;
-          this.errorMessage = err.message;
-          console.error(this.errorMessage);
+          if (err.code === "auth/user-not-found") {
+            const badEmail = this.loginForm.email;
+            this.emailRules = [v => v !== badEmail || "User not found"];
+          } else if (err.code === "auth/wrong-password") {
+            const badPassword = this.loginForm.password;
+            this.passwordRules = [
+              v => v !== badPassword || "Incorrect password"
+            ];
+          } else {
+            console.error("ERROR", err.code, err.message);
+          }
         });
     },
     navTo(value) {
       this.$router.push(value);
+    }
+  },
+  computed: {
+    nextRoute() {
+      return this.$route.query.redirect || "/";
     }
   }
 };

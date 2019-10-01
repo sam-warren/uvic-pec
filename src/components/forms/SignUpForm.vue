@@ -87,6 +87,7 @@
                     :rules="requiredFieldRules"
                     prepend-icon="person"
                     v-model="signUpForm.emergencyContact.firstName"
+                    validate-on-blur
                   ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
@@ -94,6 +95,7 @@
                     label="Last Name"
                     :rules="requiredFieldRules"
                     v-model="signUpForm.emergencyContact.lastName"
+                    validate-on-blur
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -104,6 +106,7 @@
                     :rules="requiredFieldRules"
                     prepend-icon="people"
                     v-model="signUpForm.emergencyContact.relation"
+                    validate-on-blur
                   ></v-text-field>
                 </v-flex>
                 <v-flex mx-4>
@@ -113,6 +116,7 @@
                     :rules="phoneNumberRules"
                     v-mask="'+1 (###) ### ####'"
                     v-model="signUpForm.emergencyContact.phoneNumber"
+                    validate-on-blur
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -164,7 +168,7 @@
   </v-content>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { app } from "@/firebase.ts";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -173,12 +177,12 @@ export default {
   data: () => ({
     isLoading: false,
     signUpForm: {
-      userId: "",
+      uid: "",
       firstName: "",
       lastName: "",
       email: "",
       phoneNumber: "",
-      birthDate: "",
+      birthdate: "",
       isUvicStudent: false,
       studentNumber: "",
       emergencyContact: {
@@ -220,11 +224,11 @@ export default {
       v => !!v || "This field is required",
       v => v.length === 17 || "Phone number is incorrectly formatted"
     ],
-    errorMessage: "",
-    userId: ""
+    errorMessage: ""
   }),
   methods: {
     submitForm() {
+      // If form has no errors
       if (this.$refs.form.validate()) {
         this.isLoading = true;
         firebase
@@ -235,9 +239,10 @@ export default {
           )
           .then(res => {
             // Store user in DB
+            console.log("RES", res.user);
             delete this.signUpForm.password;
             delete this.signUpForm.passwordConfirm;
-            this.signUpForm.userId = res.user.uid;
+            this.signUpForm.uid = res.user.uid;
             res.user.updateProfile({
               displayName: this.signUpForm.firstName,
               email: this.signUpForm.email
@@ -245,22 +250,8 @@ export default {
             firebase
               .firestore()
               .collection("users")
-              .add({
-                firstName: this.signUpForm.firstName,
-                lastName: this.signUpForm.lastName,
-                email: this.signUpForm.email,
-                phoneNumber: this.signUpForm.phoneNumber,
-                birthdate: this.signUpForm.birthdate,
-                isUvicStudent: this.signUpForm.isUvicStudent,
-                studentNumber: this.signUpForm.studentNumber,
-                emergencyContact: {
-                  firstName: this.signUpForm.emergencyContact.firstName,
-                  lastName: this.signUpForm.emergencyContact.lastName,
-                  relation: this.signUpForm.emergencyContact.phoneNumber,
-                  phoneNumber: this.signUpForm.emergencyContact.relation
-                },
-                medicalConditions: this.signUpForm.medicalConditions
-              });
+              .doc(res.user.uid)
+              .set(this.signUpForm);
             res.user
               .sendEmailVerification()
               .then(() => {
@@ -273,10 +264,8 @@ export default {
               "User",
               this.signUpForm.firstName,
               this.signUpForm.lastName,
-              "signed up successfully",
-              res
+              "signed up successfully"
             );
-            this.$store.dispatch("EmergencyContact/destroy");
             this.isLoading = false;
             this.$router.push({ path: "/" });
           })

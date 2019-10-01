@@ -14,10 +14,10 @@
         <v-btn class="mr-4" text @click="navTo('trips')">
           <span>Trips</span>
         </v-btn>
-        <v-btn class="primary mr-4" text @click="navTo('login')">
+        <v-btn v-if="!loggedIn" class="primary mr-4" text @click="navTo('login')">
           <span>Log In</span>
         </v-btn>
-        <v-btn secondary mr-4 text @click="logOut">
+        <v-btn v-if="loggedIn" secondary mr-4 text @click="logOut">
           <span>Log Out</span>
         </v-btn>
       </v-app-bar>
@@ -43,19 +43,34 @@ export default Vue.extend({
       this.$router.push(route);
     },
     logOut() {
-      window.localStorage.removeItem("vuex");
+      // window.localStorage.removeItem("vuex");
+      this.$store.dispatch("CurrentUser/logOut");
       firebase
         .auth()
         .signOut()
-        .then((res) => {
+        .then(() => {
           // Redirect to home
-          console.log("User signed out successfully", res);
+          console.log("User signed out successfully");
           this.$router.push("/");
         })
         .catch(err => {
           console.error(err.message);
         });
     }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("CurrentUser/syncUserData", user);
+      }
+    });
+  },
+  computed: {
+    loggedIn: {
+      get() {
+        return this.$store.getters["CurrentUser/uid"] !== "";
+      },
+    },
   }
 });
 </script>

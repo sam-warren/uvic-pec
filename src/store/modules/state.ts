@@ -6,6 +6,7 @@ export const AppState: AppTypes = {
 
 export const CurrentUserState: CurrentUserTypes = {
     uid: "",
+    hasVerified: false,
     firstName: "",
     lastName: "",
     email: "",
