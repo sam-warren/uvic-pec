@@ -1,6 +1,8 @@
 <template>
   <v-container fluid mt-4>
-    <LogInForm />
+    <v-layout>
+      <LogInForm/>
+    </v-layout>
   </v-container>
 </template>
 <script>

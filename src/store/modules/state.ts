@@ -9,5 +9,5 @@ export const CurrentUserState: CurrentUserTypes = {
     firstName: "",
     lastName: "",
     email: "",
-    userType: "user"
+    admin: false,
 };

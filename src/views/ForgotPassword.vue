@@ -1,6 +1,8 @@
 <template>
   <v-container fluid mt-4>
-    <ForgotPasswordForm/>
+    <v-layout>
+      <ForgotPasswordForm/>
+    </v-layout>
   </v-container>
 </template>
 <script>

@@ -2,13 +2,10 @@ import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
 import { RootState } from "./types";
 import { App, CurrentUser } from "./modules";
-import VuexPersistence from "vuex-persist";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-const vuexLocal = new VuexPersistence<RootState>({
-  storage: window.localStorage
-});
 
 const store: StoreOptions<RootState> = {
   state: {
@@ -18,7 +15,9 @@ const store: StoreOptions<RootState> = {
     App,
     CurrentUser,
   },
-  plugins: [vuexLocal.plugin]
+  plugins: [createPersistedState({
+    key: "vuex",
+  })],
 };
 
 export default new Vuex.Store(store);

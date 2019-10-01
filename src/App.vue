@@ -43,6 +43,7 @@ export default Vue.extend({
       this.$router.push(route);
     },
     logOut() {
+      window.localStorage.removeItem("vuex");
       firebase
         .auth()
         .signOut()

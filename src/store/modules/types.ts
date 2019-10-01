@@ -7,7 +7,7 @@ export interface CurrentUserTypes {
     firstName: string;
     lastName: string;
     email: string;
-    userType: string;
+    admin: boolean;
 }
 
 // export interface CurrentUserTypes {
