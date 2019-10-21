@@ -31,7 +31,7 @@
               Forgot your password? You can reset it&nbsp;
               <a @click="navTo('forgotpassword')">here</a>
             </v-subheader>
-            <v-card-actions class="mb-4">
+            <v-card-actions class="mb-4 mx-2">
               <v-btn @click="logIn" block color="primary">Login</v-btn>
             </v-card-actions>
             <v-divider />

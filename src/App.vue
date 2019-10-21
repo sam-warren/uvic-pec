@@ -17,9 +17,27 @@
         <v-btn v-if="!loggedIn" class="primary mr-4" text @click="navTo('login')">
           <span>Log In</span>
         </v-btn>
-        <v-btn v-if="loggedIn" secondary mr-4 text @click="logOut">
-          <span>Log Out</span>
-        </v-btn>
+        <div v-if="loggedIn">
+          <div class="text-center">
+            <v-menu offset-y>
+              <template v-slot:activator="{on}">
+                <v-btn icon v-if="loggedIn" v-on="on" class="mr-4">
+                  <v-avatar class="secondary">
+                    <v-icon dark>mdi-account-circle</v-icon>
+                  </v-avatar>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="navTo('/profile')">
+                  <v-list-item-title prepend-icon="person">My Profile</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="logOut">
+                  <v-list-item-title>Log Out</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+        </div>
       </v-app-bar>
       <router-view />
       <!-- <v-footer align="center" justify="center"> 
@@ -69,8 +87,8 @@ export default Vue.extend({
     loggedIn: {
       get() {
         return this.$store.getters["CurrentUser/uid"] !== "";
-      },
-    },
+      }
+    }
   }
 });
 </script>
