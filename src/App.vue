@@ -7,21 +7,24 @@
         <v-toolbar-title class="headline text-uppercase">
           <router-link to="/" id="header-link">
             <span class="font-weight-light">UVic</span>
-            <span>PEC</span>
+            <span> PEC</span>
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn class="mr-4" text @click="navTo('trips')">
+        <v-btn class="mr-2" text @click="navTo('trips')">
           <span>Trips</span>
         </v-btn>
-        <v-btn v-if="!loggedIn" class="primary mr-4" text @click="navTo('login')">
+        <v-btn class="mr-2" text @click="navTo('contact')">
+          <span>Contact</span>
+        </v-btn>
+        <v-btn v-if="!loggedIn" class="primary mr-2" text @click="navTo('login')">
           <span>Log In</span>
         </v-btn>
         <div v-if="loggedIn">
           <div class="text-center">
             <v-menu offset-y>
               <template v-slot:activator="{on}">
-                <v-btn icon v-if="loggedIn" v-on="on" class="mr-4">
+                <v-btn icon v-if="loggedIn" v-on="on" class="mr-2">
                   <v-avatar class="secondary">
                     <v-icon dark>mdi-account-circle</v-icon>
                   </v-avatar>

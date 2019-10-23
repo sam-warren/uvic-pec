@@ -5,6 +5,8 @@ import SignUp from "./views/SignUp.vue";
 import LogIn from "./views/LogIn.vue";
 import ForgotPassword from "./views/ForgotPassword.vue";
 import Trips from "./views/Trips.vue";
+import Profile from "./views/Profile.vue";
+import Contact from "./views/Contact.vue";
 import store from "@/store/store";
 
 Vue.use(Router);
@@ -40,7 +42,20 @@ const router = new Router({
       meta: {
         authRequired: true,
       }
-    }
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      meta: {
+        authRequired: true,
+      }
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: Contact,
+    },
   ],
 });
 
