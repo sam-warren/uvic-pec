@@ -24,7 +24,7 @@
           <div class="text-center">
             <v-menu offset-y>
               <template v-slot:activator="{on}">
-                <v-btn icon v-if="loggedIn" v-on="on" class="mr-2">
+                <v-btn fab icon v-if="loggedIn" v-on="on" class="mr-2">
                   <v-avatar class="secondary">
                     <v-icon dark>mdi-account-circle</v-icon>
                   </v-avatar>
@@ -32,9 +32,11 @@
               </template>
               <v-list>
                 <v-list-item @click="navTo('/profile')">
-                  <v-list-item-title prepend-icon="person">My Profile</v-list-item-title>
+                  <v-icon class="mr-2">person</v-icon>
+                  <v-list-item-title>Profile</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="logOut">
+                  <v-icon class="mr-2">lock</v-icon>
                   <v-list-item-title>Log Out</v-list-item-title>
                 </v-list-item>
               </v-list>
