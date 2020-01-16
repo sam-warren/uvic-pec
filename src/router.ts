@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import SignUp from "./views/SignUp.vue";
-import LogIn from "./views/LogIn.vue";
-import ForgotPassword from "./views/ForgotPassword.vue";
-import Trips from "./views/Trips.vue";
-import Profile from "./views/Profile.vue";
-import Contact from "./views/Contact.vue";
+import HomeView from "./views/HomeView.vue";
+import SignUpView from "./views/SignUpView.vue";
+import LogInView from "./views/LogInView.vue";
+import ForgotPasswordView from "./views/ForgotPasswordView.vue";
+import TripsView from "./views/TripsView.vue";
+import ProfileView from "./views/ProfileView.vue";
+import ContactView from "./views/ContactView.vue";
 import store from "@/store/store";
 
 Vue.use(Router);
@@ -18,27 +18,27 @@ const router = new Router({
     {
       path: "/",
       name: "home",
-      component: Home,
+      component: HomeView,
     },
     {
       path: "/signup",
       name: "signup",
-      component: SignUp,
+      component: SignUpView,
     },
     {
       path: "/login",
       name: "login",
-      component: LogIn,
+      component: LogInView,
     },
     {
       path: "/forgotpassword",
       name: "forgotpassword",
-      component: ForgotPassword,
+      component: ForgotPasswordView,
     },
     {
       path: "/trips",
       name: "trips",
-      component: Trips,
+      component: TripsView,
       meta: {
         authRequired: true,
       }
@@ -46,7 +46,7 @@ const router = new Router({
     {
       path: "/profile",
       name: "profile",
-      component: Profile,
+      component: ProfileView,
       meta: {
         authRequired: true,
       }
@@ -54,7 +54,7 @@ const router = new Router({
     {
       path: "/contact",
       name: "contact",
-      component: Contact,
+      component: ContactView,
     },
   ],
 });
